@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using UndeadEscape.Protocols;
+using UndeadEscape.Physics;
 
 namespace UndeadEscape.Scene.Objects;
 

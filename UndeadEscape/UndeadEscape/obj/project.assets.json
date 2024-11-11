@@ -107,11 +107,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\m2001\\Desktop\\TINR\\Projekt\\UndeadEscape\\UndeadEscape\\UndeadEscape.csproj",
+      "projectUniqueName": "C:\\Users\\m2001\\Desktop\\TINR\\Project\\TINR_Platformer\\UndeadEscape\\UndeadEscape\\UndeadEscape.csproj",
       "projectName": "UndeadEscape",
-      "projectPath": "C:\\Users\\m2001\\Desktop\\TINR\\Projekt\\UndeadEscape\\UndeadEscape\\UndeadEscape.csproj",
+      "projectPath": "C:\\Users\\m2001\\Desktop\\TINR\\Project\\TINR_Platformer\\UndeadEscape\\UndeadEscape\\UndeadEscape.csproj",
       "packagesPath": "C:\\Users\\m2001\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\m2001\\Desktop\\TINR\\Projekt\\UndeadEscape\\UndeadEscape\\obj\\",
+      "outputPath": "C:\\Users\\m2001\\Desktop\\TINR\\Project\\TINR_Platformer\\UndeadEscape\\UndeadEscape\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\m2001\\AppData\\Roaming\\NuGet\\NuGet.Config",
