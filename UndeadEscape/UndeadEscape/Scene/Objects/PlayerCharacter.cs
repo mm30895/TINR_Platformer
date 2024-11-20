@@ -11,6 +11,7 @@ public class PlayerCharacter : IMovable, IAnimation, IRotateAnimation
     private Vector2 _velocity;
     private int _animation;
     private int _rotateAnimation;
+    
 
     public ref Vector2 Position => ref _position;
     public ref Vector2 Velocity => ref _velocity;
@@ -20,5 +21,8 @@ public class PlayerCharacter : IMovable, IAnimation, IRotateAnimation
         get => _rotateAnimation;
         set => _rotateAnimation = value;
     }
+
+    public float AttackTimer { get; set; } = 0;
+
 
 }

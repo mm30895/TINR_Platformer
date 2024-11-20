@@ -13,6 +13,7 @@ public class GameRenderer : DrawableGameComponent {
     private AnimatedSprite _playerCharacter_idle;
     private AnimatedSprite _skeleton_idle;
     private AnimatedSprite _playerCharacter_running;
+    private AnimatedSprite _playerCharacter_attack;
     private Sprite _playerSprite;
     private Sprite _tileSprite;
     private Sprite _skeletonSprite;
@@ -50,7 +51,18 @@ public class GameRenderer : DrawableGameComponent {
             FrameCount = 0,
             MilisecondsPerFrame = 100,
             TimeSinceLastFrame = 0,
-            SourceRectangle = new Rectangle(0, 32 * 4, 32 * 4, 32 * 4),
+            SourceRectangle = new Rectangle(0, 33 * 4, 32 * 4, 32 * 4),
+            Origin = new Vector2(16 * 4, 16 * 4)
+        };
+        _playerCharacter_attack = new AnimatedSprite
+        {
+            Texture = textureAtlas,
+            WidthPerFrame = 32 * 4,
+            NumOfFrames = 4,
+            FrameCount = 0,
+            MilisecondsPerFrame = 100,
+            TimeSinceLastFrame = 0,
+            SourceRectangle = new Rectangle(0, 65 * 4, 32 * 4, 32 * 4),
             Origin = new Vector2(16 * 4, 16 * 4)
         };
         _playerSprite = new Sprite
@@ -127,6 +139,9 @@ public class GameRenderer : DrawableGameComponent {
                 else if (itemWithAnimation.Animation == 1)
                 {
                     animatedSprite = _playerCharacter_running;
+                }
+                else if (itemWithAnimation.Animation == 2) {
+                    animatedSprite = _playerCharacter_attack;
                 }
                 sprite = _playerSprite;
                 

@@ -18,14 +18,18 @@ public class HumanPlayer : Player {
         isJumping = false;
 
     }
+    private bool atacking = false;
 
     public override void Update(GameTime gameTime)
     {
         KeyboardState keyboard = Keyboard.GetState();
-        
-        _playerCharacter.Animation = 0; // set to idle animation
+
+        //_playerCharacter.Animation = 0; // set to idle animation
         //_playerCharacter.RotateAnimation = 0; 
 
+        if (!atacking) {
+            _playerCharacter.Animation = 0;
+        }
 
 
         if (keyboard.IsKeyDown(Keys.A))
@@ -45,7 +49,7 @@ public class HumanPlayer : Player {
         if (keyboard.IsKeyDown(Keys.D))
            
         {
-            //move left
+            //move right
             if (v.X < 0)
             {
                 v.X *= -1;
@@ -57,21 +61,40 @@ public class HumanPlayer : Player {
             _playerCharacter.RotateAnimation = 0; 
 
         }
+
         if (keyboard.IsKeyDown(Keys.Space) && !isJumping)
         {
 
             isJumping = true;
-            if (v.Y > 0)
-            {
-                v.Y *= -1;
-            }
+            isJumping = true;
+            v.Y = -300f; // Set initial jump velocity (tweak for jump height)
+            _playerCharacter.Animation = 1; // Set animation to jump
             _playerCharacter.Velocity = new Vector2(0, v.Y);
-            MovingPhysics.SimulateMovement(_playerCharacter, gameTime.ElapsedGameTime);
 
-            _playerCharacter.Animation = 1; // set animation to run
-            _playerCharacter.RotateAnimation = 0;
         }
-        if(!keyboard.IsKeyDown(Keys.Space)) {
+        if (keyboard.IsKeyDown(Keys.E) && !atacking)
+        {
+            atacking = true;
+            _playerCharacter.Animation = 2; // Attack animation
+            _playerCharacter.AttackTimer = 400; // 400 ms for 4 frames at 60 FPS
+        }
+
+        if (atacking)
+        {
+            _playerCharacter.Animation = 2; // Attack animation
+
+            // Reduce attack timer
+            _playerCharacter.AttackTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (_playerCharacter.AttackTimer <= 0)
+            {
+                atacking = false; // Attack finished
+                _playerCharacter.AttackTimer = 0; // Reset timer
+            }
+
+            return; // Skip other actions while attacking
+        }
+        if (!keyboard.IsKeyDown(Keys.Space)) {
             isJumping = false;
         }
 
