@@ -14,6 +14,8 @@ public class GameRenderer : DrawableGameComponent {
     private AnimatedSprite _skeleton_idle;
     private AnimatedSprite _playerCharacter_running;
     private AnimatedSprite _playerCharacter_attack;
+    private AnimatedSprite _playerCharacter_falling;
+    private AnimatedSprite _playerCharacter_jumping;
     private Sprite _playerSprite;
     private Sprite _tileSprite;
     private Sprite _skeletonSprite;
@@ -40,7 +42,7 @@ public class GameRenderer : DrawableGameComponent {
             FrameCount = 0,
             MilisecondsPerFrame = 600,
             TimeSinceLastFrame = 0,
-            SourceRectangle = new Rectangle(0, 0, 32*4, 32 * 4),
+            SourceRectangle = new Rectangle(4, 0, 32*4, 32 * 4),
             Origin = new Vector2(16 * 4, 16 * 4)
         };
         _playerCharacter_running = new AnimatedSprite
@@ -63,6 +65,28 @@ public class GameRenderer : DrawableGameComponent {
             MilisecondsPerFrame = 100,
             TimeSinceLastFrame = 0,
             SourceRectangle = new Rectangle(0, 65 * 4, 32 * 4, 32 * 4),
+            Origin = new Vector2(16 * 4, 16 * 4)
+        };
+        _playerCharacter_falling = new AnimatedSprite
+        {
+            Texture = textureAtlas,
+            WidthPerFrame = 32 * 4,
+            NumOfFrames = 1,
+            FrameCount = 0,
+            MilisecondsPerFrame = 100,
+            TimeSinceLastFrame = 0,
+            SourceRectangle = new Rectangle(4, 128 * 4, 32 * 4, 32 * 4),
+            Origin = new Vector2(16 * 4, 16 * 4)
+        };
+        _playerCharacter_jumping = new AnimatedSprite
+        {
+            Texture = textureAtlas,
+            WidthPerFrame = 32 * 4,
+            NumOfFrames = 1,
+            FrameCount = 0,
+            MilisecondsPerFrame = 100,
+            TimeSinceLastFrame = 0,
+            SourceRectangle = new Rectangle(32*4 + 5, 128 * 4 + 5, 32 * 4, 32 * 4),
             Origin = new Vector2(16 * 4, 16 * 4)
         };
         _playerSprite = new Sprite
@@ -142,6 +166,14 @@ public class GameRenderer : DrawableGameComponent {
                 }
                 else if (itemWithAnimation.Animation == 2) {
                     animatedSprite = _playerCharacter_attack;
+                }
+                else if (itemWithAnimation.Animation == 3)
+                {
+                    animatedSprite = _playerCharacter_falling;
+                }
+                else if (itemWithAnimation.Animation == 4)
+                {
+                    animatedSprite = _playerCharacter_jumping;
                 }
                 sprite = _playerSprite;
                 

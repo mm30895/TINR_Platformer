@@ -6,4 +6,5 @@ namespace UndeadEscape.Protocols;
 public interface IAnimation
 {
     ref int Animation { get; }
+    ref int Sprite { get; }
 }

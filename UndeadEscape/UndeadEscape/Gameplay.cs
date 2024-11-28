@@ -30,5 +30,6 @@ public class Gameplay : GameComponent {
     public override void Update(GameTime gameTime)
     {
         _player.Update(gameTime);
+        
     }
 }

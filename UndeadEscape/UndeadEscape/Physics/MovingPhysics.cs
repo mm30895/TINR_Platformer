@@ -11,13 +11,24 @@ public static class MovingPhysics
     {
         if (item is IMovable movable)
         {
-            movable.Position += movable.Velocity ;
+            movable.Position += movable.Velocity * (float)elapsed.TotalSeconds;
         }
 
     }
 
     public static void SimulateMovement(IMovable item, TimeSpan elapsed)
     {
-        item.Position += item.Velocity;
+        item.Position += item.Velocity * (float)elapsed.TotalSeconds;
+    }
+    public static void SimulateGravity(IMovable item, TimeSpan elapsed) {
+        item.Position += item.Gravity * (float)elapsed.TotalSeconds;
+    }
+    public static void SimulateGravity(object item, TimeSpan elapsed)
+    {
+        if (item is IMovable movable)
+        {
+            movable.Position += movable.Gravity * (float)elapsed.TotalSeconds;
+        }
+
     }
 }

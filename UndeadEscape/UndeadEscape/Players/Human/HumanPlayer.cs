@@ -10,12 +10,16 @@ namespace UndeadEscape.Players.Human;
 
 public class HumanPlayer : Player {
     protected Vector2 v;
-    protected bool isJumping; 
+    protected bool isJumping;
+    protected bool isFalling;
+    protected float groundLevel;
     public HumanPlayer(PlayerCharacter playerCharacter, ArrayList scene, Game game) : base (playerCharacter, scene) { 
         _playerCharacter = playerCharacter;
         _scene = scene;
         v = new Vector2(_playerCharacter.Velocity.X, _playerCharacter.Velocity.Y);
         isJumping = false;
+        isFalling = true;
+        groundLevel = 400f;
 
     }
     private bool atacking = false;
@@ -61,17 +65,42 @@ public class HumanPlayer : Player {
             _playerCharacter.RotateAnimation = 0; 
 
         }
-
-        if (keyboard.IsKeyDown(Keys.Space) && !isJumping)
+        if (keyboard.IsKeyDown(Keys.Space) && !isJumping && !isFalling)
         {
-
             isJumping = true;
-            isJumping = true;
-            v.Y = -300f; // Set initial jump velocity (tweak for jump height)
-            _playerCharacter.Animation = 1; // Set animation to jump
-            _playerCharacter.Velocity = new Vector2(0, v.Y);
-
+            isFalling = false;
+            v.Y = -800f; // jump velocity
+            _playerCharacter.Gravity = Vector2.Zero; // disable gravity
         }
+
+        if (isJumping)
+        {
+            _playerCharacter.Position += new Vector2(0, v.Y * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+            v.Y += 30f;
+            _playerCharacter.Animation = 4;
+
+            if (v.Y >= 0) // peak height
+            {
+                isJumping = false;
+                isFalling = true;
+                _playerCharacter.Gravity = new Vector2(0, 550f); //enable gravity
+            }
+        }
+
+        if (isFalling)
+        {
+            MovingPhysics.SimulateGravity(_playerCharacter, gameTime.ElapsedGameTime);
+            _playerCharacter.Animation = 3;
+        }
+
+        if (_playerCharacter.Position.Y >= groundLevel) // seting a fake collider
+        {
+            isFalling = false;
+            _playerCharacter.Position = new Vector2(_playerCharacter.Position.X, groundLevel);
+            v.Y = 0;
+        }
+
         if (keyboard.IsKeyDown(Keys.E) && !atacking)
         {
             atacking = true;
@@ -93,9 +122,6 @@ public class HumanPlayer : Player {
             }
 
             return; // Skip other actions while attacking
-        }
-        if (!keyboard.IsKeyDown(Keys.Space)) {
-            isJumping = false;
         }
 
     }

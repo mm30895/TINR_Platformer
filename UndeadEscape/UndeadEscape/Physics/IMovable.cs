@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UndeadEscape.Physics;
-public interface IMovable: IPosition, IVelocity
+public interface IMovable: IPosition, IVelocity, IGravity
 {
 
 
