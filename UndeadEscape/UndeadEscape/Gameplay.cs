@@ -4,18 +4,27 @@ using UndeadEscape.Scene;
 using Microsoft.Xna.Framework;
 using UndeadEscape.Players;
 using UndeadEscape.Players.Human;
+using UndeadEscape.Physics;
 
 namespace UndeadEscape;
 
 public class Gameplay : GameComponent {
     private Level _level;
-    private Player _player;
+    private HumanPlayer _player;
     private GameRenderer _renderer;
+    private CollisionPhysics _collisionPhysics;
 
     public Gameplay(Game theGame, Type levelClass) : base (theGame) {
         _init(theGame, levelClass);
-        UpdateOrder = 10;
         _player = new HumanPlayer(_level.playerCharacter, _level.Scene, Game);
+        _collisionPhysics = new CollisionPhysics(Game, _level);
+
+        _player.UpdateOrder = 0;
+        _collisionPhysics.UpdateOrder = 1;
+        _level.UpdateOrder = 2;
+        UpdateOrder = 4;
+        Game.Components.Add(_collisionPhysics);
+        Game.Components.Add(_player);
     }
     private void _init(Game game, Type levelClass)
     {
@@ -29,7 +38,7 @@ public class Gameplay : GameComponent {
 
     public override void Update(GameTime gameTime)
     {
-        _player.Update(gameTime);
-        
+        //_player.Update(gameTime);
+
     }
 }

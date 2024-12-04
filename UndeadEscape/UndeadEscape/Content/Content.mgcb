@@ -37,3 +37,6 @@
 /processorParam:TextureFormat=Color
 /build:atlas2.png
 
+#begin testLevel.tmx
+/copy:testLevel.tmx
+

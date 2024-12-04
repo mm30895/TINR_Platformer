@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/atlas.png","C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/bin/DesktopGL/atlas.xnb","TextureProcessor","Texture2DContent",24450,1638485,0.1677915
+"C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/atlas2.png","C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/bin/DesktopGL/atlas2.xnb","TextureProcessor","Texture2DContent",50221,26214485,0.6804179
+"C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/testLevel.tmx","C:\Users\m2001\Desktop\TINR\Project\TINR_Platformer\UndeadEscape\UndeadEscape\Content\bin\DesktopGL\testLevel.tmx","CopyItem","File",2193,2193,0.0015566

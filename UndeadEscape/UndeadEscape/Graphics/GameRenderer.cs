@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using UndeadEscape.Physics;
+using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 
 namespace UndeadEscape.Graphics;
 
@@ -23,6 +25,8 @@ public class GameRenderer : DrawableGameComponent {
     private Sprite _lichSprite;
     private Sprite _backgroundTileSprite;
     private Level _level;
+
+    private Texture2D textureAtlas;
     
 
 
@@ -32,7 +36,7 @@ public class GameRenderer : DrawableGameComponent {
 
     protected override void LoadContent() {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        var textureAtlas = Game.Content.Load<Texture2D>("atlas2");
+        textureAtlas = Game.Content.Load<Texture2D>("atlas2");
 
         _playerCharacter_idle = new AnimatedSprite
         {
@@ -145,6 +149,35 @@ public class GameRenderer : DrawableGameComponent {
         _spriteBatch.Begin();
         foreach (object item in _level.Scene)
         {
+           
+
+            if (item is Map) {
+                //its a map
+                var maps = item as Map;
+                int displayTilesize = 128;
+                int numTilesPerRow = 20;
+                int pixelTileSize = 128;
+                if (maps.Drawable) { 
+                foreach (var num in maps.MapCsv) {
+                    Rectangle derct = new Rectangle(
+                            (int)num.Key.X * displayTilesize,
+                            (int)num.Key.Y * displayTilesize,
+                            displayTilesize,
+                            displayTilesize
+                        );
+                    int x = num.Value % numTilesPerRow;
+                    int y = num.Value / numTilesPerRow;
+                    Rectangle source = new Rectangle(
+                        x * pixelTileSize,
+                        y * pixelTileSize,
+                        pixelTileSize,
+                        pixelTileSize
+                        );
+                    _spriteBatch.Draw(textureAtlas, derct, source, Color.White);
+                }
+                }
+            
+            }
             var itemWithPosition = item as IPosition;
             var itemWithAnimation = item as IAnimation;
             var itemWithRotateAnimation = item as IRotateAnimation;
@@ -200,7 +233,7 @@ public class GameRenderer : DrawableGameComponent {
             {
                 if (item is not IAnimation || animatedSprite is null)
                 {
-                    _spriteBatch.Draw(sprite.Texture, itemWithPosition.Position, sprite.SourceRectangle, Color.White, 0, sprite.Origin, 2, SpriteEffects.None, 0);
+                    _spriteBatch.Draw(sprite.Texture, itemWithPosition.Position, sprite.SourceRectangle, Color.White, 0, sprite.Origin, 1, SpriteEffects.None, 0);
                     
                 }
                 else
@@ -212,10 +245,10 @@ public class GameRenderer : DrawableGameComponent {
                         if (item is IRotateAnimation && itemWithRotateAnimation.RotateAnimation == 1)
 
                         {
-                            _spriteBatch.Draw(animatedSprite.Texture, itemWithPosition.Position, new Rectangle(animatedSprite.SourceRectangle.X + (32 * 4 * animatedSprite.FrameCount), animatedSprite.SourceRectangle.Y, animatedSprite.SourceRectangle.Width, animatedSprite.SourceRectangle.Height), Color.White, 0f, animatedSprite.Origin, 2, SpriteEffects.FlipHorizontally, 0);
+                            _spriteBatch.Draw(animatedSprite.Texture, itemWithPosition.Position, new Rectangle(animatedSprite.SourceRectangle.X + (32 * 4 * animatedSprite.FrameCount), animatedSprite.SourceRectangle.Y, animatedSprite.SourceRectangle.Width, animatedSprite.SourceRectangle.Height), Color.White, 0f, animatedSprite.Origin, 1, SpriteEffects.FlipHorizontally, 0);
                         }
                         else{
-                            _spriteBatch.Draw(animatedSprite.Texture, itemWithPosition.Position, new Rectangle(animatedSprite.SourceRectangle.X + (32 * 4 * animatedSprite.FrameCount), animatedSprite.SourceRectangle.Y, animatedSprite.SourceRectangle.Width, animatedSprite.SourceRectangle.Height), Color.White, 0f, animatedSprite.Origin, 2, SpriteEffects.None, 0);
+                            _spriteBatch.Draw(animatedSprite.Texture, itemWithPosition.Position, new Rectangle(animatedSprite.SourceRectangle.X + (32 * 4 * animatedSprite.FrameCount), animatedSprite.SourceRectangle.Y, animatedSprite.SourceRectangle.Width, animatedSprite.SourceRectangle.Height), Color.White, 0f, animatedSprite.Origin, 1, SpriteEffects.None, 0);
 
                         }
                         animatedSprite.TimeSinceLastFrame += (float)gameTime.ElapsedGameTime.TotalMilliseconds;

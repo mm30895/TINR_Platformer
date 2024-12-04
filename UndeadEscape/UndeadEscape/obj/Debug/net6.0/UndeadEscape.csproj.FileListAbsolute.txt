@@ -52,3 +52,4 @@ C:\Users\m2001\Desktop\TINR\Project\TINR_Platformer\UndeadEscape\UndeadEscape\ob
 C:\Users\m2001\Desktop\TINR\Project\TINR_Platformer\UndeadEscape\UndeadEscape\obj\Debug\net6.0\UndeadEscape.genruntimeconfig.cache
 C:\Users\m2001\Desktop\TINR\Project\TINR_Platformer\UndeadEscape\UndeadEscape\obj\Debug\net6.0\ref\UndeadEscape.dll
 C:\Users\m2001\Desktop\TINR\Project\TINR_Platformer\UndeadEscape\UndeadEscape\bin\Debug\net6.0\Content\atlas2.xnb
+C:\Users\m2001\Desktop\TINR\Project\TINR_Platformer\UndeadEscape\UndeadEscape\bin\Debug\net6.0\Content\testLevel.tmx

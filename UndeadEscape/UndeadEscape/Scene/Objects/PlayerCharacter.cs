@@ -13,8 +13,9 @@ public class PlayerCharacter : IMovable, IAnimation, IRotateAnimation
     private int _animation;
     private int _sprite;
     private int _rotateAnimation;
-    
+    private bool _onGround;
 
+    public ref bool OnGround => ref _onGround;
     public ref Vector2 Position => ref _position;
     public ref Vector2 Velocity => ref _velocity;
     public ref Vector2 Gravity => ref _gravity;

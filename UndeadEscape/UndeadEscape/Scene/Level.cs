@@ -1,6 +1,8 @@
 using System.Collections;
 using UndeadEscape.Scene.Objects;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.IO;
 
 namespace UndeadEscape.Scene;
 
@@ -13,13 +15,23 @@ public class Level : GameComponent
     protected Skeleton _skeleton;
     protected Zombie _zombie;
     protected Lich _lich;
-    
+    protected Map _mg;
+    protected Map _fg;
+    protected Map _collisions;
+
+
+
 
     public PlayerCharacter playerCharacter => _playerCharacter;
     public Tile tile => _tile;
     public Skeleton skeleton => _skeleton;
     public Zombie zombie => _zombie;
     public Lich lich => _lich;
+
+    public Map mg => _mg;
+    public Map fg => _fg;
+    public Map collisons => _collisions;
+
 
     protected Level(Game game) : base(game)
     {
@@ -30,14 +42,23 @@ public class Level : GameComponent
         _lich = new Lich();
         _backgroundTile = new BackgroundTile();
 
+        _mg = new Map();
+        _fg = new Map();
+        _collisions = new Map();
+
+
         _scene = new ArrayList
         {
             _backgroundTile,
-            _playerCharacter,
+            
             _tile,
             _skeleton,
             _zombie,
             _lich,
+            _mg,
+            _fg,
+            _collisions,
+            _playerCharacter,
         };
     }
 
@@ -48,5 +69,7 @@ public class Level : GameComponent
         get => _scene;
         set => _scene = value;
     }
+
+   
 
 }
