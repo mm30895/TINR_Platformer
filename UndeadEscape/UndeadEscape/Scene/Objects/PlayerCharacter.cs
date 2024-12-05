@@ -15,12 +15,15 @@ public class PlayerCharacter : IMovable, IAnimation, IRotateAnimation
     private int _rotateAnimation;
     private bool _onGround;
 
+    private int _hp;
+
     public ref bool OnGround => ref _onGround;
     public ref Vector2 Position => ref _position;
     public ref Vector2 Velocity => ref _velocity;
     public ref Vector2 Gravity => ref _gravity;
     public ref int Animation => ref _animation;
     public ref int Sprite => ref _sprite;
+    public ref int HP => ref _hp;
     public int RotateAnimation
     {
         get => _rotateAnimation;

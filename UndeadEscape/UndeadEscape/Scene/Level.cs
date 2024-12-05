@@ -18,6 +18,7 @@ public class Level : GameComponent
     protected Map _mg;
     protected Map _fg;
     protected Map _collisions;
+    protected Hand _hand;
 
 
 
@@ -27,6 +28,7 @@ public class Level : GameComponent
     public Skeleton skeleton => _skeleton;
     public Zombie zombie => _zombie;
     public Lich lich => _lich;
+    public Hand hand => _hand;
 
     public Map mg => _mg;
     public Map fg => _fg;
@@ -41,6 +43,7 @@ public class Level : GameComponent
         _zombie = new Zombie();
         _lich = new Lich();
         _backgroundTile = new BackgroundTile();
+        _hand = new Hand();
 
         _mg = new Map();
         _fg = new Map();
@@ -59,6 +62,7 @@ public class Level : GameComponent
             _fg,
             _collisions,
             _playerCharacter,
+            _hand,
         };
     }
 

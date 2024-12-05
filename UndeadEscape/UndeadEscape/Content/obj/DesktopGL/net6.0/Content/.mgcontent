@@ -6,8 +6,10 @@
   <SourceFiles>
     <File>C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/atlas.png</File>
     <File>C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/atlas2.png</File>
+    <File>C:/Users/m2001/Desktop/TINR/Project/TINR_Platformer/UndeadEscape/UndeadEscape/Content/hand.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

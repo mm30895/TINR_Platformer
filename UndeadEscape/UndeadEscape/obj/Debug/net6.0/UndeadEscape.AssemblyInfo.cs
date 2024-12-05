@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UndeadEscape")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78b1e4ff389938829096d8e7e3d85bdfb74077ad")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c819b014b50471a415611bc6321064085219beb7")]
 [assembly: System.Reflection.AssemblyProductAttribute("UndeadEscape")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UndeadEscape")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

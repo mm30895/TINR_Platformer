@@ -14,6 +14,7 @@ namespace UndeadEscape.Players.Human
         protected bool isJumping;
         protected float jumpVelocity = -400f;
         protected float gravityForce = 550f;
+        public int initialHp;
         protected PlayerCharacter _playerCharacter;
         protected ArrayList _scene;
 
@@ -24,19 +25,25 @@ namespace UndeadEscape.Players.Human
             _scene = scene;
             v = _playerCharacter.Velocity;
             isJumping = false;
+            initialHp = 100;
         }
 
         private bool attacking = false;
+        private bool takingDamage = false;
 
         private float groundSpeed = 300f; // Normal ground movement speed
         private float airControlFactor = 0.3f; // Reduced control while in the air
+
+
+        private float damageAnimationTimer = 0f; // Timer to track damage animation
+        private Vector2 knockbackForce = new Vector2(500f, -300f); // Knockback force (X, Y)
 
         public override void Update(GameTime gameTime)
         {
             KeyboardState keyboard = Keyboard.GetState();
 
-            // Reset to idle animation if not attacking
-            if (!attacking)
+            // Reset to idle animation if not attacking or damaged
+            if (!attacking && damageAnimationTimer <= 0)
             {
                 _playerCharacter.Animation = 0;
             }
@@ -57,15 +64,55 @@ namespace UndeadEscape.Players.Human
                 _playerCharacter.Velocity = new Vector2(v.X, _playerCharacter.Velocity.Y);
             }
 
-            // Handle jumping
-            HandleJumping(keyboard);
+            // Handle damage animation and knockback
+            HandleDamageAnimation(gameTime);
 
-            // Apply gravity and handle falling
-            HandleFalling(gameTime);
+            
+            if (!takingDamage) {
+                // Handle jumping
+                HandleJumping(keyboard);
 
-            // Handle attacking
-            HandleAttacking(keyboard, gameTime);
+                // Apply gravity and handle falling
+                HandleFalling(gameTime, 3);
+
+                // Handle attacking
+                HandleAttacking(keyboard, gameTime);
+            }
         }
+
+        private void HandleDamageAnimation(GameTime gameTime)
+        {
+            // Check if the player took damage
+            if (initialHp > _playerCharacter.HP && damageAnimationTimer <= 0)
+            {
+                takingDamage = true;
+                // Start damage animation and timer
+                _playerCharacter.Animation = 5; // Damage animation
+                damageAnimationTimer = 200f; // Damage animation duration in milliseconds
+                initialHp = _playerCharacter.HP; // Update HP
+
+                // Apply knockback based on facing direction
+                float knockbackDirection = _playerCharacter.RotateAnimation == 1 ? 1 : -1; // 1 for right, -1 for left
+                _playerCharacter.Velocity = new Vector2(knockbackForce.X * knockbackDirection *2, knockbackForce.Y);
+                MovingPhysics.SimulateMovement(_playerCharacter, gameTime.ElapsedGameTime);
+                _playerCharacter.OnGround = false; // Ensure the player is airborne during knockback
+            }
+
+            // If damage animation timer is active, reduce it
+            if (damageAnimationTimer > 0)
+            {
+                damageAnimationTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                _playerCharacter.Animation = 5;
+
+                // Reset to idle or appropriate animation after timer expires
+                if (damageAnimationTimer <= 0)
+                {
+                    _playerCharacter.Animation = 0; // Reset to idle animation
+                    HandleFalling(gameTime, 5);
+                }
+            }
+        }
+
 
         private void HandleHorizontalMovement(float speed, GameTime gameTime)
         {
@@ -73,7 +120,15 @@ namespace UndeadEscape.Players.Human
             // Apply speed based on whether the player is grounded or not
             v.X = isGrounded ? speed : speed * airControlFactor;
             _playerCharacter.Velocity = new Vector2(v.X, _playerCharacter.Velocity.Y);
+            if (!isGrounded)
+            {
+                _playerCharacter.Velocity = new Vector2(v.X, _playerCharacter.Velocity.Y);
+            }
+            else {
+                _playerCharacter.Velocity = new Vector2(v.X, 0);
+            }
             MovingPhysics.SimulateMovement(_playerCharacter, gameTime.ElapsedGameTime);
+
 
             _playerCharacter.Animation = 1; // Run animation
             _playerCharacter.RotateAnimation = v.X < 0 ? 1 : 0; // Flip animation based on direction
@@ -92,15 +147,24 @@ namespace UndeadEscape.Players.Human
             }
         }
 
-        private void HandleFalling(GameTime gameTime)
+        private void HandleFalling(GameTime gameTime, int animation)
         {
             if (!_playerCharacter.OnGround)
             {
+
+                if (_playerCharacter.Velocity.Y > 0 && !(damageAnimationTimer > 0))
+                {
+                    _playerCharacter.Animation = animation;
+                }
+                else if (_playerCharacter.Velocity.Y < 0 && !(damageAnimationTimer > 0)) {
+                    _playerCharacter.Animation = 4;
+                }
                 // Apply gravity and fall
                 _playerCharacter.Velocity += new Vector2(0, gravityForce * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 _playerCharacter.Position += _playerCharacter.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                _playerCharacter.Animation = 3; // Fall animation
+                //_playerCharacter.Animation = animation; // Fall animation
+                takingDamage = false;
             }
 
             // If grounded, reset jump and falling states
@@ -109,6 +173,7 @@ namespace UndeadEscape.Players.Human
                 isJumping = false;
                 v.Y = 0; // Reset vertical velocity when on the ground
                 //_playerCharacter.Animation = 0; // Idle animation
+                
             }
         }
 
@@ -130,7 +195,7 @@ namespace UndeadEscape.Players.Human
                 if (_playerCharacter.AttackTimer <= 0)
                 {
                     attacking = false; // Attack finished
-                    _playerCharacter.AttackTimer = 0; // Reset timer
+                    _playerCharacter.AttackTimer = 3; // Reset timer
                 }
             }
         }

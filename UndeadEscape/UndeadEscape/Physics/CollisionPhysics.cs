@@ -31,13 +31,16 @@ namespace UndeadEscape.Physics
             {
                 if (item is PlayerCharacter player)
                 {
-                    //player.Position = new Vector2(200, 200);
-                    // Get collidable tiles from the map
                     Map map = (Map)_level.Scene[7];
                     IEnumerable<Rectangle> collidableTiles = CollisionHelper.GetCollidableTiles(map, TileSize);
-
-                    // Resolve collisions between the player and the tiles
                     Collision.CollisionBetween(player, collidableTiles);
+
+                    //resolving other collisions
+                    foreach (object other in _level.Scene) {
+                        if (other is Hand hand) {
+                            Collision.CollisionBetweenHand(player, hand);
+                        }
+                    }
                 }
             }
         }
