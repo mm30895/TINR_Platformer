@@ -55,12 +55,13 @@ public class Level : GameComponent
             _backgroundTile,
             
             _tile,
-            _skeleton,
+            
             _zombie,
             _lich,
             _mg,
             _fg,
             _collisions,
+            _skeleton,
             _playerCharacter,
             _hand,
         };

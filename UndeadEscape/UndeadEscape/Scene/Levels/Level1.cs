@@ -15,15 +15,20 @@ public class Level1 : Level
         _playerCharacter.Velocity = new Vector2(250, 0);
         _playerCharacter.Gravity = new Vector2(0, 400);
         _playerCharacter.HP = 100;
+        _playerCharacter.Damage = 2;
         //_tile.Position = new Vector2(50 * 4, 164 * 4);
-        //_skeleton.Animation = 0;
-        //_skeleton.Sprite = 0;
-        //_skeleton.Position = new Vector2(150 * 4, 100 * 4);
-        //_skeleton.Velocity = new Vector2(250, 0);
+        _skeleton.Animation = 0;
+        _skeleton.Sprite = 0;
+        _skeleton.Position = new Vector2(1000, 400);
+        _skeleton.Velocity = new Vector2(250, 0);
+        _skeleton.Gravity = new Vector2(0, 400);
+        _skeleton.HP = 100;
+        _skeleton.Damage = 2;
+        _skeleton.IsActive = true;
         //_zombie.Position = new Vector2(250 * 4, 100 * 4);
         //_lich.Position = new Vector2(350 * 4, 100 * 4);
         //_backgroundTile.Position = new Vector2(50 * 4, 100 * 4);
-        _hand.Position = new Vector2(700, 576);
+        _hand.Position = new Vector2(1500, 576);
         _hand.Damage = 20;
         
 

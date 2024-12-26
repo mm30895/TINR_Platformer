@@ -5,18 +5,10 @@ using UndeadEscape.Protocols;
 
 namespace UndeadEscape.Scene.Objects;
 
-public class Skeleton : IMovable, IAnimation
+public class Skeleton : Entity
 {
-    private Vector2 _position;
-    private int _animation;
-    private int _sprite;
-    private Vector2 _velocity;
-    private Vector2 _gravity;
-    public ref Vector2 Position => ref _position;
-    public ref Vector2 Velocity => ref _velocity;
-    public ref Vector2 Gravity => ref _gravity;
-    public ref int Animation => ref _animation;
 
-    public ref int Sprite => ref _sprite;
+    private bool isActive;
 
+    public ref bool IsActive => ref isActive;
 }

@@ -25,22 +25,31 @@ namespace UndeadEscape.Physics
             //{
             //    MovingPhysics.SimulateMovement(item, gameTime.ElapsedGameTime);
             //}
-            
+
             // Handle collisions
             foreach (object item in _level.Scene)
             {
                 if (item is PlayerCharacter player)
                 {
-                    Map map = (Map)_level.Scene[7];
+                    Map map = (Map)_level.Scene[6];
                     IEnumerable<Rectangle> collidableTiles = CollisionHelper.GetCollidableTiles(map, TileSize);
                     Collision.CollisionBetween(player, collidableTiles);
+                   
 
                     //resolving other collisions
                     foreach (object other in _level.Scene) {
                         if (other is Hand hand) {
                             Collision.CollisionBetweenHand(player, hand);
                         }
+                        if (other is Skeleton skeleton) {
+                            Collision.CollisionBetweenEnemy(player, skeleton);
+                        }
                     }
+                }
+                if (item is Skeleton aiPlayer) {
+                    Map map = (Map)_level.Scene[6];
+                    IEnumerable<Rectangle> collidableTiles = CollisionHelper.GetCollidableTiles(map, TileSize);
+                    Collision.CollisionBetween(aiPlayer, collidableTiles);
                 }
             }
         }

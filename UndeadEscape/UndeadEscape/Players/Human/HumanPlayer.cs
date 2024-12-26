@@ -183,6 +183,7 @@ namespace UndeadEscape.Players.Human
             if (keyboard.IsKeyDown(Keys.E) && !attacking)
             {
                 attacking = true;
+                _playerCharacter.Attacking = true;
                 _playerCharacter.Animation = 2; // Attack animation
                 _playerCharacter.AttackTimer = 400; // 400 ms attack duration
             }
@@ -195,6 +196,7 @@ namespace UndeadEscape.Players.Human
                 if (_playerCharacter.AttackTimer <= 0)
                 {
                     attacking = false; // Attack finished
+                    _playerCharacter.Attacking = false;
                     _playerCharacter.AttackTimer = 3; // Reset timer
                 }
             }

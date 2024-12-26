@@ -13,10 +13,13 @@
   <ItemGroup>
     <Compile Remove="Physics\NewFolder1\**" />
     <Compile Remove="Physics\NewFolder\**" />
+    <Compile Remove="Players\NewFolder1\**" />
     <EmbeddedResource Remove="Physics\NewFolder1\**" />
     <EmbeddedResource Remove="Physics\NewFolder\**" />
+    <EmbeddedResource Remove="Players\NewFolder1\**" />
     <None Remove="Physics\NewFolder1\**" />
     <None Remove="Physics\NewFolder\**" />
+    <None Remove="Players\NewFolder1\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />

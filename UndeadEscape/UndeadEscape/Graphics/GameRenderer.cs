@@ -13,12 +13,17 @@ namespace UndeadEscape.Graphics;
 public class GameRenderer : DrawableGameComponent {
     private SpriteBatch _spriteBatch;
     private AnimatedSprite _playerCharacter_idle;
-    private AnimatedSprite _skeleton_idle;
     private AnimatedSprite _playerCharacter_running;
     private AnimatedSprite _playerCharacter_attack;
     private AnimatedSprite _playerCharacter_falling;
     private AnimatedSprite _playerCharacter_jumping;
     private AnimatedSprite _playerCharacter_hurt;
+
+    private AnimatedSprite _skeleton_idle;
+    private AnimatedSprite _skeleton_running;
+    private AnimatedSprite _skeleton_attack;
+    private AnimatedSprite _skeleton_hurt;
+
     private Sprite _playerSprite;
     private Sprite _tileSprite;
     private Sprite _skeletonSprite;
@@ -130,6 +135,39 @@ public class GameRenderer : DrawableGameComponent {
             MilisecondsPerFrame = 600,
             TimeSinceLastFrame = 0,
             SourceRectangle = new Rectangle(0, 160 * 4, 32 * 4, 32 * 4),
+            Origin = new Vector2(16 * 4, 16 * 4)
+        };
+        _skeleton_running = new AnimatedSprite
+        {
+            Texture = textureAtlas,
+            WidthPerFrame = 32 * 4,
+            NumOfFrames = 6,
+            FrameCount = 0,
+            MilisecondsPerFrame = 100,
+            TimeSinceLastFrame = 0,
+            SourceRectangle = new Rectangle(4, 192 * 4, 32 * 4, 32 * 4),
+            Origin = new Vector2(16 * 4, 16 * 4)
+        };
+        _skeleton_attack = new AnimatedSprite
+        {
+            Texture = textureAtlas,
+            WidthPerFrame = 32 * 4,
+            NumOfFrames = 4,
+            FrameCount = 0,
+            MilisecondsPerFrame = 100,
+            TimeSinceLastFrame = 0,
+            SourceRectangle = new Rectangle(4, 224 * 4, 32 * 4, 32 * 4),
+            Origin = new Vector2(16 * 4, 16 * 4)
+        };
+        _skeleton_hurt = new AnimatedSprite
+        {
+            Texture = textureAtlas,
+            WidthPerFrame = 32 * 4,
+            NumOfFrames = 1,
+            FrameCount = 0,
+            MilisecondsPerFrame = 100,
+            TimeSinceLastFrame = 0,
+            SourceRectangle = new Rectangle(4, 256 * 4 + 4, 32 * 4, 32 * 4),
             Origin = new Vector2(16 * 4, 16 * 4)
         };
         _skeletonSprite = new Sprite
@@ -255,8 +293,31 @@ public class GameRenderer : DrawableGameComponent {
             }
             else if (item is Skeleton)
             {
-                sprite = _skeletonSprite;
-                animatedSprite = _skeleton_idle;
+                if (itemWithAnimation.Animation == 0)
+                {
+                    animatedSprite = _skeleton_idle;
+                }
+                else if (itemWithAnimation.Animation == 1)
+                {
+                    animatedSprite = _skeleton_running;
+                }
+                else if (itemWithAnimation.Animation == 2)
+                {
+                    animatedSprite = _skeleton_attack;
+                }
+                else if (itemWithAnimation.Animation == 3)
+                {
+                    animatedSprite = _skeleton_hurt;
+                }
+                else if (itemWithAnimation.Animation == 4)
+                {
+                    animatedSprite = _skeleton_hurt;
+                }
+                else if (itemWithAnimation.Animation == 5)
+                {
+                    animatedSprite = _skeleton_hurt;
+                }
+                sprite = _playerSprite;
             }
             else if (item is Zombie)
             {
@@ -266,7 +327,8 @@ public class GameRenderer : DrawableGameComponent {
             {
                 sprite = _lichSprite;
             }
-            else if (item is Hand) {
+            else if (item is Hand)
+            {
                 sprite = _handSprite;
                 animatedSprite = _hand;
             }
